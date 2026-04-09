@@ -19,7 +19,7 @@ def get_db_connection():
         autocommit=True
     )
 
-# --- Sample Data ---
+# --- Data ---
 recommendations = {
     "Pizza": ["Cold Coffee", "Burger"],
     "French Fries": ["Cold Coffee", "Samosa"],
@@ -39,11 +39,11 @@ _lower_items = {item.lower(): item for item in items}
 
 user_history = {"user1": ["Pizza", "Pizza", "Cold Coffee"]}
 
-# --- 1. SERVE THE WEBSITE ---
+# --- 1. THE FIX: WEBSITE ROUTES (Put these first) ---
 
 @app.route('/')
 def index():
-    # This renders your actual website homepage
+    # This serves your HTML file instead of JSON
     return send_from_directory(app.static_folder, 'index.html')
 
 # --- 2. API ENDPOINTS ---
@@ -79,6 +79,53 @@ def recommend():
     result = recommendations.get(item, ["No suggestion"])
     return jsonify({"recommendations": result})
 
+def get_frequently_bought_together_suggestions(history):
+    if not history:
+        return []
+    suggested = []
+    for entry in history:
+        if entry == "Pizza":
+            suggested.append("Cold Coffee")
+        suggested.extend(recommendations.get(entry, []))
+    # preserve order and dedupe while keeping high-priority Pizza pairing first
+    seen = set()
+    filtered = []
+    for item in suggested:
+        if item not in seen and item not in history:
+            seen.add(item)
+            filtered.append(item)
+    return filtered[:5]
+
+
+def mood_based_suggestions(mood):
+    mood_map = {
+        "stressed": ["Butter Chicken", "Paneer Butter Masala", "Burger", "French Fries"],
+        "productive": ["Salad", "Veg Biryani", "Grilled Chicken", "Sushi"]
+    }
+    return mood_map.get((mood or "").strip().lower(), [])
+
+
+@app.route('/api/smart-suggest', methods=['POST'])
+def smart_suggest():
+    data = request.get_json(silent=True) or {}
+    user = data.get("user")
+    mood = data.get("mood")
+
+    history = user_history.get(user, []) if user else []
+    recommended_items = get_frequently_bought_together_suggestions(history)
+    mood_items = mood_based_suggestions(mood)
+
+    response = {
+        "user": user or None,
+        "mood": mood or None,
+        "history": history,
+        "frequently_bought_together": recommended_items,
+        "mood_based_suggestions": mood_items
+    }
+
+    return jsonify(response)
+
+
 @app.route('/analytics')
 def analytics():
     counts = Counter(["Pizza", "Burger", "Pizza", "French Fries"])
@@ -91,12 +138,11 @@ def behavior():
     counts = Counter(user_history[user])
     return jsonify({"suggestions": [item for item, _ in counts.most_common(3)]})
 
-# --- 3. SERVE OTHER STATIC FILES (CSS, JS, etc.) ---
+# --- 3. CATCH-ALL FOR OTHER PAGES ---
 @app.route('/<path:path>')
 def serve_static(path):
     return send_from_directory(app.static_folder, path)
 
 if __name__ == "__main__":
-    # Render uses the PORT environment variable
     port = int(os.environ.get("PORT", 10000))
     app.run(host="0.0.0.0", port=port)
