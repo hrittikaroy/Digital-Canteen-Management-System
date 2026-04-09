@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Order - Digital Canteen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="navbar-brand">
+                <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#1e5a96"/>
+                    <path d="M 50 20 L 70 40 L 70 70 L 30 70 L 30 40 Z" fill="#fff" stroke="#1e5a96" stroke-width="2"/>
+                </svg>
+                <span class="brand-text">Digital Canteen</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="track-order.html">Orders</a></li>
+                <li><a href="wallet.html">Account</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-header">
+                    <span id="userEmail">User</span>
+                    <button onclick="logout()" class="btn btn-logout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- How to Order Section -->
+    <div class="feature-page-container">
+        <div class="feature-header">
+            <h1>⚡ Fast & Convenient Ordering</h1>
+            <p>Place your orders online without leaving your desk</p>
+        </div>
+
+        <!-- Why Our System -->
+        <section class="feature-benefits">
+            <h2>Why Order With Digital Canteen?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Order in seconds without waiting in queues</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💼</div>
+                    <h3>No Desk Leave</h3>
+                    <p>Order directly from your desk - stay productive</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💳</div>
+                    <h3>Auto Billing</h3>
+                    <p>Salary-based balance automatically deducted - no cash needed</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔔</div>
+                    <h3>Instant Notifications</h3>
+                    <p>Get instant confirmation and status updates for your order</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Time Slots</h3>
+                    <p>Order during your department's designated time slot</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📱</div>
+                    <h3>Mobile Friendly</h3>
+                    <p>Order from any device - desktop, tablet, or mobile</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step by Step Guide -->
+        <section class="feature-guide">
+            <h2>Complete Ordering Process</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Login to Your Account</h3>
+                    <p>Use your email and password. Select your position (Manager, Assistant, Staff, Intern) and department (IT, HR, Finance, Marketing)</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Check Your Wallet</h3>
+                    <p>View your monthly salary allowance (₹150-500 based on position) in your wallet section</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Browse the Menu</h3>
+                    <p>Explore our 12+ dishes across 4 cuisines. Search by name or filter by cuisine type</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Add Items to Cart</h3>
+                    <p>Click "Add to Cart" for items you want. View your cart in the sidebar for quick review</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Review Your Order</h3>
+                    <p>Go to cart, review items and total cost. Check that your balance is sufficient</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h3>Place Your Order</h3>
+                    <p>Click "Place Order" - amount is automatically deducted from your salary balance</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">7</div>
+                    <h3>Get Confirmation</h3>
+                    <p>Receive instant order confirmation with order ID and preparation time</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">8</div>
+                    <h3>Track Your Order</h3>
+                    <p>Monitor your order status in real-time from confirmation to pickup</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payment & Billing -->
+        <section class="feature-highlight">
+            <h2>Smart Payment System</h2>
+            <div class="highlight-grid">
+                <div class="highlight-card">
+                    <h3>💰 Monthly Allowance</h3>
+                    <ul class="detail-list">
+                        <li><strong>Manager:</strong> ₹500/month</li>
+                        <li><strong>Assistant:</strong> ₹350/month</li>
+                        <li><strong>Staff:</strong> ₹250/month</li>
+                        <li><strong>Intern:</strong> ₹150/month</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <h3>⏰ Department Time Slots</h3>
+                    <ul class="detail-list">
+                        <li><strong>IT:</strong> 1:00 - 1:20 PM</li>
+                        <li><strong>HR:</strong> 1:20 - 1:40 PM</li>
+                        <li><strong>Finance:</strong> 1:40 - 2:00 PM</li>
+                        <li><strong>Marketing:</strong> 2:00 - 2:20 PM</li>
+                    </ul>
+                </div>
+                <div class="highlight-card">
+                    <h3>🔐 Secure & Transparent</h3>
+                    <ul class="detail-list">
+                        <li>✓ No cash transactions</li>
+                        <li>✓ Automatic billing</li>
+                        <li>✓ Clear itemized receipts</li>
+                        <li>✓ Full order history</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tips & Tricks -->
+        <section class="tips-section">
+            <h2>💡 Pro Tips for Faster Ordering</h2>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <h4>Tip 1: Plan Ahead</h4>
+                    <p>Browse the menu in advance to know what you want to order when your time slot arrives</p>
+                </div>
+                <div class="tip-card">
+                    <h4>Tip 2: Use Search</h4>
+                    <p>Know the dish name? Use the search bar to find it instantly instead of browsing</p>
+                </div>
+                <div class="tip-card">
+                    <h4>Tip 3: Check Stock</h4>
+                    <p>Popular items run out! Check stock availability before placing your order</p>
+                </div>
+                <div class="tip-card">
+                    <h4>Tip 4: Set Reminders</h4>
+                    <p>Set a reminder for your department's ordering time slot to not miss out</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="feature-cta">
+            <div class="cta-content">
+                <h2>Ready to Order?</h2>
+                <p>Log in to your account and start ordering delicious meals in seconds!</p>
+                <button class="btn btn-primary btn-large" onclick="window.location.href='login.html'">
+                    Login Now
+                </button>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Why Order With Us?</h4>
+                <ul>
+                    <li>✓ Convenient Ordering</li>
+                    <li>✓ Quick Service</li>
+                    <li>✓ Track Orders Easily</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="browse-menu.html">Browse Menu</a></li>
+                    <li><a href="how-to-order.html">How to Order</a></li>
+                    <li><a href="track-order.html">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>canteen@company.com</p>
+                <p>+91 90000 00000</p>
+            </div>
+            <div class="footer-section">
+                <h4>Social Sites</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">𝕏</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">▶</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Digital Canteen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

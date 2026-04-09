@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Canteen - Admin Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="user-header">
+            <span>Admin Dashboard</span>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </div>
+        
+        <div class="admin-dashboard">
+            <!-- Dashboard Stats -->
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <h3>📊 Total Revenue</h3>
+                    <p class="stat-value" id="totalRevenue">₹0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>📦 Total Orders</h3>
+                    <p class="stat-value" id="totalOrders">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>🍽️ Items Sold</h3>
+                    <p class="stat-value" id="totalItemsSold">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>👥 Active Users</h3>
+                    <p class="stat-value" id="activeUsers">0</p>
+                </div>
+            </div>
+
+            <!-- Navigation Tabs -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="showTab('menu')">Menu Management</button>
+                <button class="tab-btn" onclick="showTab('orders')">Order Tracking</button>
+                <button class="tab-btn" onclick="showTab('analytics')">Analytics</button>
+                <button class="tab-btn" onclick="showTab('settings')">Settings</button>
+            </div>
+
+            <!-- Menu Management Tab -->
+            <div id="menu-tab" class="tab-content active">
+                <h2>🍽️ Menu Management</h2>
+                <div class="add-item">
+                    <input id="food" placeholder="Food Name" required>
+                    <input id="price" type="number" placeholder="Price" min="1" required>
+                    <input id="stock" type="number" placeholder="Stock Quantity" min="1" value="50" required>
+                    <button onclick="addFood()">Add Item</button>
+                </div>
+                <div id="foodList" class="food-list"></div>
+            </div>
+
+            <!-- Order Tracking Tab -->
+            <div id="orders-tab" class="tab-content">
+                <h2>📋 Real-time Order Tracking</h2>
+                <div class="order-filters">
+                    <select id="orderFilter" onchange="filterOrders()">
+                        <option value="all">All Orders</option>
+                        <option value="today">Today's Orders</option>
+                        <option value="it">IT Department</option>
+                        <option value="hr">HR Department</option>
+                        <option value="finance">Finance Department</option>
+                        <option value="marketing">Marketing Department</option>
+                    </select>
+                </div>
+                <div id="ordersList" class="orders-list"></div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div id="analytics-tab" class="tab-content">
+                <h2>📈 Analytics & Reports</h2>
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Revenue by Department</h3>
+                        <div id="revenueByDept" class="chart-placeholder">Chart will be displayed here</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Popular Items</h3>
+                        <div id="popularItems" class="chart-placeholder">Chart will be displayed here</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Peak Hours</h3>
+                        <div id="peakHours" class="chart-placeholder">Chart will be displayed here</div>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Stock Status</h3>
+                        <div id="stockStatus" class="stock-status"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div id="settings-tab" class="tab-content">
+                <h2>⚙️ System Settings</h2>
+                <div class="settings-section">
+                    <h3>Daily Stock Reset</h3>
+                    <button onclick="manualStockReset()" class="reset-btn">Reset All Stock Now</button>
+                    <p>Last reset: <span id="lastReset">Never</span></p>
+                </div>
+                <div class="settings-section">
+                    <h3>Time Slot Management</h3>
+                    <div id="timeSlotsDisplay" class="time-slots-display"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        // Initialize Socket.IO for real-time updates
+        const socket = io();
+
+        // Listen for order status updates
+        socket.on('order-status-update', (data) => {
+            console.log('Order status updated:', data);
+            loadOrders(); // Refresh the orders list
+        });
+
+        // Admin functions using backend
+        async function loadAdminMenu() {
+            try {
+                const response = await fetch('/api/menu');
+                const menu = await response.json();
+                const menuList = document.getElementById('menu-list');
+                if (menuList) {
+                    menuList.innerHTML = menu.map(item => `
+                        <div class="menu-item-admin">
+                            <span>${item.name} - ₹${item.price}</span>
+                            <button onclick="editItem(${item.id})">Edit</button>
+                            <button onclick="deleteItem(${item.id})">Delete</button>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Failed to load menu:', error);
+            }
+        }
+
+        // Add new item
+        const addForm = document.getElementById('add-menu-form');
+        if (addForm) {
+            addForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const name = document.getElementById('item-name').value;
+                const price = document.getElementById('item-price').value;
+                const category = document.getElementById('item-category').value;
+                const image = document.getElementById('item-image').value;
+
+                try {
+                    await fetch('/api/menu', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ name, price: parseFloat(price), category, image })
+                    });
+                    alert('Item added!');
+                    loadAdminMenu();
+                    e.target.reset();
+                } catch (error) {
+                    console.error('Add item error:', error);
+                }
+            });
+        }
+
+        // Delete item
+        async function deleteItem(id) {
+            if (confirm('Delete this item?')) {
+                try {
+                    await fetch(`/api/menu/${id}`, { method: 'DELETE' });
+                    alert('Item deleted!');
+                    loadAdminMenu();
+                } catch (error) {
+                    console.error('Delete error:', error);
+                }
+            }
+        }
+
+        // Update order status
+        async function updateOrderStatus(orderId, newStatus) {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('Please login as admin first!');
+                return;
+            }
+
+            try {
+                const response = await fetch(`/api/orders/${orderId}/status`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ status: newStatus })
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    alert(`Order ${orderId} status updated to ${newStatus}!`);
+                    loadOrders(); // Refresh the orders list
+                } else {
+                    alert('Failed to update status: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Update status error:', error);
+                alert('Failed to update order status');
+            }
+        }
+
+        // Load orders for admin
+        async function loadOrders() {
+            const token = localStorage.getItem('token');
+            if (!token) return;
+
+            try {
+                const response = await fetch('/api/admin/orders', {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const orders = await response.json();
+
+                const ordersList = document.getElementById('ordersList');
+                if (ordersList) {
+                    ordersList.innerHTML = orders.map(order => `
+                        <div class="order-card">
+                            <div class="order-header">
+                                <h3>Order #${order.id}</h3>
+                                <span class="order-status status-${order.status.toLowerCase()}">${order.status}</span>
+                            </div>
+                            <div class="order-details">
+                                <p><strong>User:</strong> ${order.user_id}</p>
+                                <p><strong>Seat:</strong> ${order.seat || 'N/A'}</p>
+                                <p><strong>Total:</strong> ₹${order.total}</p>
+                                <p><strong>Time:</strong> ${new Date(order.created_at).toLocaleString()}</p>
+                            </div>
+                            <div class="order-actions">
+                                <select onchange="updateOrderStatus(${order.id}, this.value)" class="status-select">
+                                    <option value="">Change Status</option>
+                                    <option value="Pending" ${order.status === 'Pending' ? 'selected' : ''}>Pending</option>
+                                    <option value="Accepted" ${order.status === 'Accepted' ? 'selected' : ''}>Accepted</option>
+                                    <option value="Preparing" ${order.status === 'Preparing' ? 'selected' : ''}>Preparing</option>
+                                    <option value="Ready" ${order.status === 'Ready' ? 'selected' : ''}>Ready</option>
+                                    <option value="Delivered" ${order.status === 'Delivered' ? 'selected' : ''}>Delivered</option>
+                                </select>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            } catch (error) {
+                console.error('Failed to load orders:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAdminMenu();
+            loadOrders();
+        });
+    </script>

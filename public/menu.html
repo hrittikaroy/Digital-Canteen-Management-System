@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Canteen - Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="navbar-brand">
+                <div class="logo-mark">
+                    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="45" fill="#1A73E8"/>
+                        <path d="M 50 20 L 70 40 L 70 70 L 30 70 L 30 40 Z" fill="#fff" stroke="#1A73E8" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div>
+                    <span class="brand-text">Digital Canteen</span>
+                    <span class="brand-tagline">Office dining reimagined</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="orders.html">Orders</a></li>
+                <li><a href="account.html">Account</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-header">
+                    <span id="userEmail">User</span>
+                    <button onclick="logout()" class="btn btn-logout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="menu-container">
+        <div class="menu-main">
+            <!-- Menu Header -->
+            <div class="menu-header">
+                <h1>Today's Menu</h1>
+                <p class="menu-subtitle">Explore curated meals for the office with seamless cart management, quick checkout, and premium delivery-style experience.</p>
+                <div class="menu-search">
+                    <input type="text" id="searchMenu" placeholder="Search menu..." onkeyup="filterMenuBySearch()">
+                    <button onclick="filterMenuBySearch()">🔍</button>
+                </div>
+                <button onclick="getRecommendation('Pizza')" class="btn btn-primary">Recommend Me</button>
+            </div>
+
+            <!-- Category Filters -->
+            <div class="category-filters">
+                <button class="filter-btn active" onclick="filterByCategory('all')">All</button>
+                <button class="filter-btn" onclick="filterByCategory('indian')">Indian</button>
+                <button class="filter-btn" onclick="filterByCategory('japanese')">Japanese</button>
+                <button class="filter-btn" onclick="filterByCategory('continental')">Continental</button>
+                <button class="filter-btn" onclick="filterByCategory('snacks')">Snacks</button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div id="menu-grid" class="menu-grid"></div>
+        </div>
+
+        <!-- Shopping Cart Sidebar -->
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h2>Your Cart <span id="cartBadge">(0)</span></h2>
+                <button class="close-cart" onclick="toggleCart()">×</button>
+            </div>
+            <div id="cart-items" class="cart-items"></div>
+            <div class="cart-summary">
+                <div class="cart-total">
+                    <span>Total Amount:</span>
+                    <span class="total-price">₹ <span id="cart-total">0</span></span>
+                </div>
+                <button class="btn btn-large btn-primary" onclick="goToCart()">Proceed to Checkout</button>
+                <button class="btn btn-large btn-outline" onclick="toggleCart()">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Why Order With Us?</h4>
+                <ul>
+                    <li>✓ Convenient Ordering</li>
+                    <li>✓ Quick Service</li>
+                    <li>✓ Track Orders Easily</li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="menu.html">Menu</a></li>
+                    <li><a href="#">Orders</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Contact Us</h4>
+                <p>canteen@company.com</p>
+                <p>+91 90000 00000</p>
+            </div>
+            <div class="footer-section">
+                <h4>Social Sites</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">𝕏</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">▶</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Digital Canteen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize menu page
+        document.addEventListener('DOMContentLoaded', function() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Display user email
+            document.getElementById('userEmail').textContent = user.email;
+
+            // Slot warning (do not block user)
+            const withinSlot = isWithinTimeSlot(user.department);
+            if (!withinSlot) {
+                const warning = document.createElement('div');
+                warning.className = 'time-warning';
+                warning.innerHTML = `<p style="color: #ff9900; text-align: center;">⏰ You are outside the assigned ordering slot for ${user.department}. Orders may still be allowed for testing.</p>`;
+                document.querySelector('.menu-container').insertBefore(warning, document.querySelector('.menu-container').firstChild);
+            }
+            
+            // Display menu
+            displayMenu('all');
+            
+            // Update cart count
+            updateCartCount();
+            updateCartDisplay();
+        });
+        
+        function goToCart() {
+            window.location.href = 'cart.html';
+        }
+        
+        function toggleCart() {
+            const sidebar = document.querySelector('.cart-sidebar');
+            sidebar.classList.toggle('open');
+        }
+    </script>
+</body>
+</html>

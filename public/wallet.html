@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Canteen - Wallet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Your Wallet</h1>
+        <div class="wallet-info">
+            <div class="staff-info">
+                <p>Staff Position: <strong id="staffPosition">-</strong></p>
+                <p>Department: <strong id="departmentName">-</strong></p>
+                <p>Monthly Allowance: ₹<strong id="monthlyAllowance">0</strong></p>
+                <p>Ordering Hours: <strong id="timeSlot">-</strong></p>
+            </div>
+            <h2>Current Balance: ₹<span id="balance">0</span></h2>
+            <div class="wallet-note">
+                <p><strong>Note:</strong> Money in your wallet will be deducted from your salary according to your staff position. It is not that we will add money to the wallet ourselves specifically for office purposes.</p>
+                <p><strong>Ordering:</strong> You can place orders anytime 24/7. No time restrictions apply.</p>
+            </div>
+        </div>
+        <div class="actions">
+            <button onclick="goToMenu()">Order Food</button>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

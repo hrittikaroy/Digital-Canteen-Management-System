@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Canteen - Staff Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="navbar-brand">
+                <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#1e5a96"/>
+                    <path d="M 50 20 L 70 40 L 70 70 L 30 70 L 30 40 Z" fill="#fff" stroke="#1e5a96" stroke-width="2"/>
+                </svg>
+                <span class="brand-text">Digital Canteen</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#">Menu</a></li>
+                <li><a href="#">Orders</a></li>
+                <li><a href="#">Account</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="index.html" class="btn btn-outline">Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-card">
+            <h1>Staff Login</h1>
+            <p class="login-subtitle">Enter your credentials to continue</p>
+            
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" placeholder="Password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="position">Staff Position</label>
+                    <select id="position" required>
+                        <option value="">Select Staff Position</option>
+                        <option value="manager">Manager (₹500/month)</option>
+                        <option value="assistant">Assistant (₹350/month)</option>
+                        <option value="staff">Staff (₹250/month)</option>
+                        <option value="intern">Intern (₹150/month)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <select id="department" required>
+                        <option value="">Select Department</option>
+                        <option value="it">IT Department</option>
+                        <option value="hr">HR Department</option>
+                        <option value="finance">Finance Department</option>
+                        <option value="marketing">Marketing Department</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-large btn-primary">Login</button>
+            </form>
+
+            <p id="loginMessage" class="login-message"></p>
+
+            <div class="login-footer">
+                <p>Demo Credentials:</p>
+                <p><small>Admin: admin@canteen.com / admin</small></p>
+                <p><small>User: any email / any password</small></p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

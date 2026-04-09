@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Menu - Digital Canteen</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation Header -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="navbar-brand">
+                <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="45" fill="#1e5a96"/>
+                    <path d="M 50 20 L 70 40 L 70 70 L 30 70 L 30 40 Z" fill="#fff" stroke="#1e5a96" stroke-width="2"/>
+                </svg>
+                <span class="brand-text">Digital Canteen</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="track-order.html">Orders</a></li>
+                <li><a href="wallet.html">Account</a></li>
+            </ul>
+            <div class="nav-actions">
+                <div class="user-header">
+                    <span id="userEmail">User</span>
+                    <button onclick="logout()" class="btn btn-logout">Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Browse Menu Section -->
+    <div class="feature-page-container">
+        <div class="feature-header">
+            <h1>📋 Browse Menu Easily</h1>
+            <p>Select your meals with just a few clicks</p>
+        </div>
+
+        <!-- Why Browse Our Menu -->
+        <section class="feature-benefits">
+            <h2>Why Browse Our Menu?</h2>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔍</div>
+                    <h3>Easy Search</h3>
+                    <p>Find exactly what you're craving with our quick search feature</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">🏷️</div>
+                    <h3>Smart Filters</h3>
+                    <p>Filter by cuisine type: Indian, Japanese, Continental, and Snacks</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📸</div>
+                    <h3>HD Food Photos</h3>
+                    <p>View high-quality images of every dish to know exactly what you're ordering</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Clear Pricing</h3>
+                    <p>Transparent pricing with no hidden charges. Know your total before checkout</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">📦</div>
+                    <h3>Stock Status</h3>
+                    <p>See real-time stock availability - never miss out on your favorite items</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">⭐</div>
+                    <h3>Popular Picks</h3>
+                    <p>Discover trending items that are favorites among your colleagues</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How to Browse -->
+        <section class="feature-guide">
+            <h2>How to Browse the Menu</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Navigate to Menu</h3>
+                    <p>Click on "Menu" from the top navigation or visit the Full Menu section</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Search or Filter</h3>
+                    <p>Use the search bar to find specific dishes or click category filters (All, Indian, Japanese, Continental, Snacks)</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>View Details</h3>
+                    <p>Check the dish image, name, price, and real-time stock availability</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Add to Cart</h3>
+                    <p>Click "Add to Cart" for any item that catches your eye</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <h3>Review Cart</h3>
+                    <p>Check your cart sidebar and adjust quantities as needed</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">6</div>
+                    <h3>Checkout</h3>
+                    <p>Proceed to checkout when you're ready to place your order</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Available Cuisines -->
+        <section class="cuisines-section">
+            <h2>Our Cuisines</h2>
+            <div class="cuisines-grid">
+                <div class="cuisine-card indian-bg">
+                    <h3>🍛 Indian</h3>
+                    <p>Paneer Butter Masala, Veg Biryani, Chicken Curry, Butter Chicken</p>
+                    <p class="cuisine-desc">Authentic recipes with rich flavors and aromatic spices</p>
+                </div>
+                <div class="cuisine-card japanese-bg">
+                    <h3>🥢 Japanese</h3>
+                    <p>Chow Mein, Sushi, Spring Rolls</p>
+                    <p class="cuisine-desc">Classic stir-fries and noodle dishes prepared fresh</p>
+                </div>
+                <div class="cuisine-card continental-bg">
+                    <h3>🍝 Continental</h3>
+                    <p>Grilled Chicken, White Sauce Pasta, Fish and Chips</p>
+                    <p class="cuisine-desc">European-inspired dishes with fresh ingredients and classic preparations</p>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="browse-menu.html">Browse Menu</a></li>
+                        <li><a href="how-to-order.html">How to Order</a></li>
+                        <li><a href="track-order.html">Track Order</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Us</h4>
+                <p>canteen@company.com</p>
+                <p>+91 90000 00000</p>
+            </div>
+            <div class="footer-section">
+                <h4>Social Sites</h4>
+                <div class="social-icons">
+                    <a href="#" class="social-icon">f</a>
+                    <a href="#" class="social-icon">𝕏</a>
+                    <a href="#" class="social-icon">📷</a>
+                    <a href="#" class="social-icon">▶</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2026 Digital Canteen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
